@@ -6,6 +6,7 @@ import allure
 
 class ResetPasswordPage(BasePage):
 
+    @allure.step(f'Проверяем открытие страницы Сброса пароля')
     def check_page(self):
         return self.check_open_page(Urls.RESET_PASSWORD_URL, ResetPasswordPageLocators.SAVE_BUTTON)
 

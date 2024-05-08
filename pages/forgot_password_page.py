@@ -6,9 +6,11 @@ import allure
 
 class ForgotPasswordPage(BasePage):
 
+    @allure.step(f'Открываем страницу Восстановления пароля')
     def go_to_forgot_password_page(self):
         self.go_to_url(Urls.FORGOT_PASSWORD_URL)
 
+    @allure.step(f'Проверяем открытие страницы Восстановления пароля')
     def check_page(self):
         return self.check_open_page(Urls.FORGOT_PASSWORD_URL, ForgotPasswordPageLocators.RESTORE_BUTTON)
 

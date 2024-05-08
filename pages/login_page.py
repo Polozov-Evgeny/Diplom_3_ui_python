@@ -6,6 +6,7 @@ import allure
 
 class LoginPage(BasePage):
 
+    @allure.step(f'Открываем страницу Авторизации')
     def go_to_login_page(self):
         self.go_to_url(Urls.LOGIN_URL)
 
@@ -14,5 +15,7 @@ class LoginPage(BasePage):
         self.is_invisible_element(LoginPageLocators.LOADING_ANIMATION)
         self.click_on_element_with_wait(LoginPageLocators.RESTORE_PASSWORD_LINK)
 
+
+    @allure.step(f'Проверяем открытие страницы Авторизации')
     def check_page(self):
         return self.check_open_page(Urls.LOGIN_URL, LoginPageLocators.LOGIN_BUTTON)

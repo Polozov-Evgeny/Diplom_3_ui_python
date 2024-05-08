@@ -6,9 +6,11 @@ import allure
 
 class PersonalAreaPage(BasePage):
 
+    @allure.step(f'Открываем Личный кабинет')
     def go_to_personal_area_page(self):
         self.go_to_url(Urls.ACCOUNT_URL)
 
+    @allure.step(f'Проверяем открытие страницы с Личным кабинетом')
     def check_page(self):
         return self.check_open_page(Urls.PROFILE_URL, PersonalAreaPageLocators.PROFILE_LINK)
 

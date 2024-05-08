@@ -6,9 +6,11 @@ import allure
 
 class ConstructorPage(BasePage):
 
+    @allure.step(f'Открываем Главную страницу с конструктором')
     def go_to_constructor_page(self):
         self.go_to_url(Urls.CONSTRUCTOR_URL)
 
+    @allure.step(f'Проверяем открытие Главной страницы с конструктором')
     def check_page(self):
         return self.check_open_page(Urls.CONSTRUCTOR_URL, ConstructorPageLocators.ASSEMBLE_BURGER_TEXT)
 

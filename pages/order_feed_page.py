@@ -6,9 +6,11 @@ import allure
 
 class OrderFeedPage(BasePage):
 
+    @allure.step(f'Открываем страницу Ленты заказов')
     def go_to_order_feed_page(self):
         self.go_to_url(Urls.ORDER_FEED_URL)
 
+    @allure.step(f'Проверяем открытие страницы Ленты заказов')
     def check_page(self):
         return self.check_open_page(Urls.ORDER_FEED_URL, OrderFeedPageLocators.ORDER_FEED_TEXT)
 

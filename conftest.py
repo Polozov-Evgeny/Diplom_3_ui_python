@@ -19,8 +19,7 @@ def driver(request):
 
 @pytest.fixture(scope='function')
 def login_new_user(driver):
-    new_user = helpers.register_new_user_and_return_login_data()
-    tokens = helpers.login_user_and_return_tokens(new_user)
+    tokens = helpers.register_login_new_user_and_return_authorization_data()
     driver.get(Urls.MAIN_URL)
     token_script = (f'localStorage.setItem("accessToken", "{tokens['accessToken']}");'
                     f'localStorage.setItem("refreshToken", "{tokens['refreshToken']}");')

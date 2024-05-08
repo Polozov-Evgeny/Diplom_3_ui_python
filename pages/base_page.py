@@ -2,6 +2,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common import TimeoutException, NoSuchElementException
+import logging
 import allure
 
 
@@ -9,13 +10,14 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.logger = logging.getLogger(__name__)
 
     def find_visible_element(self, locator):
         try:
             return WebDriverWait(self.driver, 5).until(
                 expected_conditions.visibility_of_element_located(locator))
         except (TimeoutException, NoSuchElementException):
-            print(f'Элемент {locator} не найден в окне браузера')
+            self.logger.error(f'Элемент {locator} не найден в окне браузера')
 
     def is_element_displayed_with_wait(self, locator):
         try:
@@ -37,7 +39,7 @@ class BasePage:
                 expected_conditions.text_to_be_present_in_element(locator, old_text))
             return True
         except Exception as e:
-            print('Проблема:', e)
+            self.logger.error('Проблема:', e)
             return False
 
     def find_clicable_element(self, locator):
@@ -45,13 +47,13 @@ class BasePage:
             return WebDriverWait(self.driver, 5).until(
                 expected_conditions.element_to_be_clickable(locator))
         except (TimeoutException, NoSuchElementException):
-            print(f'Элемент {locator} не найден/не кликабелен')
+            self.logger.error(f'Элемент {locator} не найден/не кликабелен')
 
     def click_on_element_with_wait(self, locator):
         try:
             self.find_clicable_element(locator).click()
         except (AttributeError, TimeoutException, NoSuchElementException):
-            print(f'Элемент "{locator}" не найден/не кликабелен')
+            self.logger.error(f'Элемент "{locator}" не найден/не кликабелен')
 
     def set_text_to_element_with_wait(self, locator, text):
         self.find_visible_element(locator).send_keys(text)
@@ -73,8 +75,7 @@ class BasePage:
         ActionChains(self.driver).drag_and_drop(element_to_drag, area).perform()
 
     def go_to_url(self, url):
-        with allure.step(f'Открываем страницу {url}'):
-            self.driver.get(url)
+        self.driver.get(url)
 
     def get_current_url(self):
         return self.driver.current_url

@@ -7,6 +7,7 @@ import allure
 
 class OrderHistoryPage(BasePage):
 
+    @allure.step(f'Проверяем открытие страницы Истории ордеров')
     def check_page(self):
         return self.check_open_page(Urls.ORDER_HISTORY_URL, PersonalAreaPageLocators.PROFILE_LINK)
 
